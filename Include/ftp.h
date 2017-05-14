@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Sun May 14 16:16:26 2017 Thomas LE MOULLEC
+** Last update Sun May 14 21:55:32 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -27,12 +27,13 @@
 #define PASSWORD "PASS"
 
 #define PWD "PWD"
-#define CDUP "CPUP"
+#define CDUP "CDUP"
 #define CWD "CWD"
 
 #define QUIT "QUIT"
 #define HELP "HELP"
 #define NOOP "NOOP"
+#define DELE "DELE"
 
 #define PASV "PASV"
 #define PORT "PORT"
@@ -40,17 +41,26 @@
 #define STOR "STOR"
 #define LIST "LIST"
 
-#define NBR_CMD 13
+#define NBR_CMD 14
+
+#define WELCOME "Service ready for new user."
 
 #define ERR_AUTH "530 Please login with USER and PASS."
 #define ERR_USER "530 Login incorrect."
-#define ERR_PASS "Invalid username or password"
-#define SUCCESS_AUTH "230 Login successful."
+#define ERR_PASS "332 Need account for login."
 #define ALRD_AUTH "530 Can't change from guest user."
+#define PASS_FIRST "503 Login with USER first."
+
 #define DEF_USER "Anonymous"
 #define DEF_PASS ""
-#define ASK_PASS "331 Please specify the password."
-#define PASS_FIRST "503 Login with USER first."
+
+#define ASK_PASS "331 User name okay, need password."
+#define SUCCESS_CWD "250 Requested file action okay, completed."
+#define SUCCESS_DELE "250 Requested file action okay, completed."
+#define SUCCESS_CDUP "200 Command okay."
+#define SUCCESS_AUTH "230 User logged in, proceed."
+#define SUCCESS_PWD "257 PATHNAME created."
+#define SUCCESS_NOOP "200 Command okay."
 
 #define UNKNOWN_CMD "500 Unknown command."
 
@@ -90,7 +100,7 @@ typedef struct	s_client_res
 typedef struct	s_handler
 {
   t_client_res	client;
-  t_user	user;
+  t_user	*user;
 }		t_handler;
 
 typedef struct	s_command_tab
@@ -127,4 +137,5 @@ bool            port_fct(t_connect *, t_handler *);
 bool            retr_fct(t_connect *, t_handler *);
 bool            stor_fct(t_connect *, t_handler *);
 bool            list_fct(t_connect *, t_handler *);
+bool            del_fct(t_connect *, t_handler *);
 void            initialise_session(t_handler *);

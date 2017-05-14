@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 23:49:10 2017 Thomas LE MOULLEC
-** Last update Sun May 14 16:16:02 2017 Thomas LE MOULLEC
+** Last update Sun May 14 21:53:08 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -38,11 +38,11 @@ void            initialise_connection(t_connect *server)
 void		initialise_session(t_handler *control)
 {
   control->client.cmd = NULL;
-  control->client.param = NULL;
-  control->user.pathUser = NULL;
-  control->user.userName = NULL;
-  control->user.passwd = NULL;
-  control->user.is_connected = false;
+  control->client.param = "";
+  control->user->pathUser = NULL;
+  control->user->userName = NULL;
+  control->user->passwd = NULL;
+  control->user->is_connected = false;
 }
 
 void		init_cmd_fct(t_command_tab *orders)
@@ -60,6 +60,7 @@ void		init_cmd_fct(t_command_tab *orders)
   orders->cmd_tab[10] = &retr_fct;
   orders->cmd_tab[11] = &stor_fct;
   orders->cmd_tab[12] = &list_fct;
+  orders->cmd_tab[13] = &del_fct;
 }
 
 void		init_cmd_order(t_command_tab *orders)
@@ -77,6 +78,7 @@ void		init_cmd_order(t_command_tab *orders)
   orders->cmd[10] = RETR;
   orders->cmd[11] = STOR;
   orders->cmd[12] = LIST;
+  orders->cmd[13] = DELE;
 }
 
 void		initialise_cmd(t_command_tab *orders)

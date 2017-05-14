@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 13:11:23 2017 Thomas LE MOULLEC
-** Last update Sun May 14 16:16:47 2017 Thomas LE MOULLEC
+** Last update Sun May 14 22:15:49 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -21,8 +21,11 @@ int		main(int ac, char **av)
       (control = malloc(sizeof(*control))) == NULL)
     handle_error_sys("Malloc Failed");
   server->port = atoi(av[1]);
-  control->user.pathUser = av[2];
+  if ((control->user = malloc(sizeof(*control->user))) == NULL)
+    handle_error_sys("Malloc Failed");
   initialise_connection(server);
+  initialise_session(control);
+  control->user->pathUser = av[2];
   run_server(server, control);
   return (0);
 }

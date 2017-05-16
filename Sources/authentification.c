@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 13:05:17 2017 Thomas LE MOULLEC
-** Last update Sun May 14 20:56:07 2017 Thomas LE MOULLEC
+** Last update Mon May 15 21:08:08 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -17,7 +17,7 @@ bool		check_authentification(t_handler *control, t_connect *server)
       strcmp(control->client.cmd, PASSWORD) != 0 &&	\
       strcmp(control->client.cmd, QUIT) != 0)
     {
-      dprintf(server->client_fd, "%s\n", ERR_AUTH);
+      dprintf(server->client_fd, "%s", ERR_AUTH);
       return (false);
     }
   return (true);
@@ -27,15 +27,15 @@ bool		passwd_fct(t_connect *server, t_handler *control)
 {
   if (control->user->userName == NULL)
     {
-      dprintf(server->client_fd, "%s\n", PASS_FIRST);
+      dprintf(server->client_fd, "%s", PASS_FIRST);
       return (false);
     }
   if (strcmp(control->client.param, DEF_PASS) != 0)
     {
-      dprintf(server->client_fd, "%s\n", ERR_PASS);
+      dprintf(server->client_fd, "%s", ERR_PASS);
       return (false);
     }
-  dprintf(server->client_fd, "%s\n", SUCCESS_AUTH);
+  dprintf(server->client_fd, "%s", SUCCESS_AUTH);
   control->user->passwd = control->client.param;
   control->user->is_connected = true;
   return (true);
@@ -45,15 +45,15 @@ bool          user_fct(t_connect *server, t_handler *control)
 {
   if (control->user->is_connected == true)
     {
-      dprintf(server->client_fd, "%s\n", ALRD_AUTH);
+      dprintf(server->client_fd, "%s", ALRD_AUTH);
       return (false);
     }
   if (strcmp(control->client.param, DEF_USER) != 0)
     {
-      dprintf(server->client_fd, "%s\n", ERR_USER);
+      dprintf(server->client_fd, "%s", ERR_USER);
       return (false);
     }
   control->user->userName = control->client.param;
-  dprintf(server->client_fd, "%s\n", ASK_PASS);
+  dprintf(server->client_fd, "%s", ASK_PASS);
   return (true);
 }

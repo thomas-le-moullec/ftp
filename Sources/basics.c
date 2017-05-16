@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:45:08 2017 Thomas LE MOULLEC
-** Last update Sun May 14 21:56:26 2017 Thomas LE MOULLEC
+** Last update Mon May 15 21:29:32 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -13,7 +13,7 @@
 bool            quit_fct(t_connect *server, t_handler *control)
 {
   (void)control;
-  dprintf(server->client_fd, "221 QUIT\n");
+  dprintf(server->client_fd, "%s", SUCCESS_QUIT);
   return (true);
 }
 
@@ -24,7 +24,7 @@ bool            del_fct(t_connect *server, t_handler *control)
       handle_error_sys(control->client.param);
       return (false);
     }
-  dprintf(server->client_fd, "%s\n", SUCCESS_DELE);
+  dprintf(server->client_fd, "%s", SUCCESS_DELE);
   return (true);
 }
 
@@ -41,23 +41,23 @@ bool			help_fct(t_connect *server, t_handler *control)
     }
   i = 0;
   (void)control;
-  dprintf(server->client_fd, "214-The following commands are recognized.\n");
+  dprintf(server->client_fd, "%s", SUCCESS_HELP);
   while (i < NBR_CMD)
     {
       dprintf(server->client_fd, " %s", fct->cmd[i]);
       if (i % 14 == 0 && i != 0)
-	dprintf(server->client_fd, "\n");
+	dprintf(server->client_fd, "\r\n");
       i++;
     }
   if (i % 14 != 0)
-    dprintf(server->client_fd, "\n");
-  dprintf(server->client_fd, "214 Help OK.\n");
+    dprintf(server->client_fd, "\r\n");
+  dprintf(server->client_fd, "%s", SUCCESS_HELP2);
   return (true);
 }
 
 bool            noop_fct(t_connect *server, t_handler *control)
 {
   (void)control;
-  dprintf(server->client_fd, "%s\n", SUCCESS_NOOP);
+  dprintf(server->client_fd, "%s", SUCCESS_NOOP);
   return (true);
 }

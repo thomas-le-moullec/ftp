@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:15:54 2017 Thomas LE MOULLEC
-** Last update Sun May 14 22:17:43 2017 Thomas LE MOULLEC
+** Last update Mon May 15 22:39:56 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -16,16 +16,20 @@ bool            cwd_fct(t_connect *server, t_handler *control)
       strcmp(control->client.param, "$HOME") == 0)
     {
       if (chdir(control->user->pathUser) == -1)
-	handle_error_sys(control->user->pathUser);
+	{
+	  dprintf(server->client_fd, "%s", ERR_CWD);
+	  return (false);
+	}
     }
   else
     {
       if (chdir(control->client.param) == -1)
-	handle_error_sys(control->client.param);
+	{
+	  dprintf(server->client_fd, "%s", ERR_CWD);
+	  return (false);
+	}
     }
-  if (chdir(control->client.param) == -1)
-    handle_error_sys(control->client.param);
-  dprintf(server->client_fd, "%s\n", SUCCESS_CWD);
+  dprintf(server->client_fd, "%s", SUCCESS_CWD);
   return (true);
 }
 
@@ -33,8 +37,11 @@ bool            cdup_fct(t_connect *server, t_handler *control)
 {
   (void)control;
   if (chdir("../") == -1)
-    handle_error_sys("../");
-  dprintf(server->client_fd, "%s\n", SUCCESS_CDUP);
+    {
+      dprintf(server->client_fd, "%s", ERR_CWD);
+      return (false);
+    }
+  dprintf(server->client_fd, "%s", SUCCESS_CDUP);
   return (true);
 }
 
@@ -45,8 +52,7 @@ bool            pwd_fct(t_connect *server, t_handler *control)
   (void)control;
   if (getcwd(cwd, sizeof(cwd)) == NULL)
     handle_error_sys("getcwd failed");
-  dprintf(server->client_fd, "%s\n", cwd);
-  dprintf(server->client_fd, "%s\n", SUCCESS_PWD);
+  dprintf(server->client_fd, "257 %s %s", cwd, SUCCESS_PWD);
   return (true);
 }
 

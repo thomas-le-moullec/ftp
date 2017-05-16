@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Sun May 14 20:49:02 2017 Thomas LE MOULLEC
+** Last update Tue May 16 21:44:32 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -15,9 +15,9 @@ char            *client_read(int client_fd)
   char          *buffer;
   int           size;
 
-  if ((buffer = malloc(sizeof(*buffer) * 100)) == NULL)
+  if ((buffer = malloc(sizeof(*buffer) * 1024)) == NULL)
     handle_error_sys("Malloc Failed");
-  if ((size = read(client_fd, buffer, 100)) == -1)
+  if ((size = read(client_fd, buffer, 1024)) <= 0)
     return (NULL);
   buffer[size] = '\0';
   return (buffer);
@@ -86,7 +86,7 @@ bool			exec_order(t_handler *control, t_connect *server)
 	return ((fct->cmd_tab[i])(server, control));
       i++;
     }
-  dprintf(server->client_fd, "%s\n", UNKNOWN_CMD);
+  dprintf(server->client_fd, "%s", UNKNOWN_CMD);
   return (false);
 }
 
@@ -97,7 +97,7 @@ bool		handle_client(t_connect *server, t_handler *control)
 
   end = false;
   server->client_ip = inet_ntoa(server->s_in_client.sin_addr);
-  dprintf(server->client_fd, "%s\n", WELCOME);
+  dprintf(server->client_fd, "%s", WELCOME);
   while (end == false)
     {
       client_res = client_read(server->client_fd);

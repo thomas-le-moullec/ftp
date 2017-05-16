@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Sun May 14 21:55:32 2017 Thomas LE MOULLEC
+** Last update Tue May 16 22:32:58 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -17,6 +17,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <fcntl.h>
+#include <sys/wait.h>
 
 #define CRLF1 '\n'
 #define CRLF2 '\r'
@@ -43,26 +45,32 @@
 
 #define NBR_CMD 14
 
-#define WELCOME "Service ready for new user."
+#define WELCOME "Service ready for new user.\r\n"
 
-#define ERR_AUTH "530 Please login with USER and PASS."
-#define ERR_USER "530 Login incorrect."
-#define ERR_PASS "332 Need account for login."
-#define ALRD_AUTH "530 Can't change from guest user."
-#define PASS_FIRST "503 Login with USER first."
+#define ERR_PASV_ACTIF "425 Use PORT or PASV first.\r\n"
+#define ERR_CWD "550 Failed to change directory.\r\n"
+#define ERR_AUTH "530 Please login with USER and PASS.\r\n"
+#define ERR_USER "530 Login incorrect.\r\n"
+#define ERR_PASS "332 Need account for login.\r\n"
+#define ALRD_AUTH "530 Can't change from guest user.\r\n"
+#define PASS_FIRST "503 Login with USER first.\r\n"
 
 #define DEF_USER "Anonymous"
 #define DEF_PASS ""
 
-#define ASK_PASS "331 User name okay, need password."
-#define SUCCESS_CWD "250 Requested file action okay, completed."
-#define SUCCESS_DELE "250 Requested file action okay, completed."
-#define SUCCESS_CDUP "200 Command okay."
-#define SUCCESS_AUTH "230 User logged in, proceed."
-#define SUCCESS_PWD "257 PATHNAME created."
-#define SUCCESS_NOOP "200 Command okay."
+#define ASK_PASS "331 User name okay, need password.\r\n"
+#define SUCCESS_CWD "250 Requested file action okay, completed.\r\n"
+#define SUCCESS_DELE "250 Requested file action okay, completed.\r\n"
+#define SUCCESS_CDUP "200 Command okay.\r\n"
+#define SUCCESS_AUTH "230 User logged in, proceed.\r\n"
+#define SUCCESS_PWD "created.\r\n"
+#define SUCCESS_NOOP "200 Command okay.\r\n"
+#define SUCCESS_QUIT "221 Quit.\r\n"
+#define SUCCESS_HELP "214-The following commands are recognized.\r\n"
+#define SUCCESS_HELP2 "214 Help OK.\r\n"
+#define SUCCESS_PASV "227 Entering Passive Mode "
 
-#define UNKNOWN_CMD "500 Unknown command."
+#define UNKNOWN_CMD "500 Unknown command.\r\n"
 
 typedef enum
   {
@@ -101,6 +109,9 @@ typedef struct	s_handler
 {
   t_client_res	client;
   t_user	*user;
+  int		pasv_client_fd;
+  bool		pasv;
+  bool		activ;
 }		t_handler;
 
 typedef struct	s_command_tab

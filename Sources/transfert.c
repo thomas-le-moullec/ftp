@@ -5,16 +5,35 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:47:04 2017 Thomas LE MOULLEC
-** Last update Tue May 16 23:15:00 2017 Thomas LE MOULLEC
+** Last update Thu May 18 12:42:45 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
 
+bool		get_fd_pasv(t_handler *control, t_connect pasv, t_connect *server)
+{
+  int		port;
+  socklen_t	len;
+
+  len = sizeof(&pasv.s_in);
+  getsockname(pasv.fd, (struct sockaddr *)&pasv.s_in, &len);
+  port = ntohs(pasv.s_in.sin_port);
+  dprintf(server->client_fd, "%s(127,0,0,1,%d,%d).\r\n", \
+	  SUCCESS_PASV, port / 256, port - (port / 256 * 256));
+  if ((pasv.client_fd = accept(pasv.fd, (struct sockaddr *)&pasv.s_in_client, \
+			       &pasv.s_in_size)) == -1)
+    {
+      close(pasv.fd);
+      handle_error_sys("Accept failed");
+    }
+  control->client_fd = pasv.client_fd;
+  control->pasv = true;
+  return (true);
+}
+
 bool            pasv_fct(t_connect *server, t_handler *control)
 {
   t_connect	pasv;
-  socklen_t	len;
-  int		port;
 
   pasv.client_ip = NULL;
   pasv.pe = NULL;
@@ -37,26 +56,27 @@ bool            pasv_fct(t_connect *server, t_handler *control)
       close(pasv.fd);
       handle_error_sys("Error on the Listen");
     }
-  len = sizeof(&pasv.s_in);
-  getsockname(pasv.fd, (struct sockaddr *)&pasv.s_in, &len);
-  port = ntohs(pasv.s_in.sin_port);
-  dprintf(server->client_fd, "%s(127,0,0,1,%d,%d).\r\n", SUCCESS_PASV, port / 256, port - (port / 256 * 256));
-  if ((pasv.client_fd = accept(pasv.fd, (struct sockaddr *)&pasv.s_in_client, \
-			       &pasv.s_in_size)) == -1)
-    {
-      close(pasv.fd);
-      handle_error_sys("Accept failed");
-    }
-  control->pasv_client_fd = pasv.client_fd;
-  control->pasv = true;
-  return (true);
+  return (get_fd_pasv(control, pasv, server));
 }
 
 bool            port_fct(t_connect *server, t_handler *control)
 {
-  (void)control;
+  t_connect	port;
+  int		fd;
+
   (void)server;
-  printf("PORT\n");
+  port.pe = getprotobyname("TCP");
+  if (!port.pe)
+    return (1);
+  if ((fd = socket(AF_INET, SOCK_STREAM, port.pe->p_proto)) == -1)
+    handle_error("Could not create new Socket");
+  port.s_in.sin_family = AF_INET;
+  port.s_in.sin_port = htons(atoi(control->client.param));
+  port.s_in.sin_addr.s_addr = inet_addr(LOCALHOST);
+  if (connect(fd, (struct sockaddr *)&port.s_in, sizeof(port.s_in)) == -1)
+    handle_error("Could not connect");
+  control->client_fd = fd;
+  control->activ = true;
   return (true);
 }
 
@@ -77,14 +97,7 @@ bool            retr_fct(t_connect *server, t_handler *control)
   while (end == false)
     {
       client_res = client_read(fd);
-      if (client_res == NULL)
-	{
-	  end = true;
-	  close(fd);
-	  close(control->pasv_client_fd);
-	}
-      if (end == false)
-	dprintf(control->pasv_client_fd, "%s", client_res);
+      end = check_end_order_retr(client_res, end, fd, control->client_fd);
     }
   control->pasv = false;
   control->activ = false;
@@ -103,53 +116,15 @@ bool            stor_fct(t_connect *server, t_handler *control)
       dprintf(server->client_fd, "%s", ERR_PASV_ACTIF);
       return (false);
     }
-  if ((fd = open(control->client.param, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IRGRP | S_IROTH)) == -1)
+  if ((fd = open(control->client.param, O_RDWR | O_CREAT | O_TRUNC, \
+		 S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1)
     handle_error_sys("Open Failed");
   while (end == false)
     {
-      client_res = client_read(control->pasv_client_fd);
-      if (client_res == NULL)
-	{
-	  end = true;
-	  close(fd);
-	  close(control->pasv_client_fd);
-	}
-      if (end == false)
-	dprintf(fd, "%s", client_res);
+      client_res = client_read(control->client_fd);
+      end = check_end_order_stor(client_res, end, fd, control->client_fd);
     }
   control->pasv = false;
   control->activ = false;
-  return (true);
-}
-
-bool            list_fct(t_connect *server, t_handler *control)
-{
-  char		**av;
-  pid_t		pid;
-  int		status;
-
-  if (control->pasv == false && control->activ == false)
-    {
-      dprintf(server->client_fd, "%s", ERR_PASV_ACTIF);
-      return (false);
-    }
-  pid = fork();
-  if ((av = malloc(sizeof(char *) * 4)) == NULL)
-    handle_error_sys("Malloc Failed");
-  av[0] = strdup("/bin/ls");
-  av[1] = strdup("-l");
-  if (strcmp(control->client.param, "") != 0)
-    av[2] = strdup(control->client.param);
-  else
-    av[2] = NULL;
-  av[3] = NULL;
-  if (pid == 0)
-    {
-      dup2(control->pasv_client_fd, 1);
-      execve("/bin/ls", av, NULL);
-    }
-  else
-    waitpid(pid, &status, WUNTRACED | WCONTINUED);
-  close(control->pasv_client_fd);
   return (true);
 }

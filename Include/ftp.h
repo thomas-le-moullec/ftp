@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Tue May 16 22:32:58 2017 Thomas LE MOULLEC
+** Last update Thu May 18 13:28:46 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/wait.h>
+#include <ctype.h>
 
 #define CRLF1 '\n'
 #define CRLF2 '\r'
@@ -43,9 +44,11 @@
 #define STOR "STOR"
 #define LIST "LIST"
 
+#define LOCALHOST "127.0.0.1"
+
 #define NBR_CMD 14
 
-#define WELCOME "Service ready for new user.\r\n"
+#define WELCOME "220 Service ready for new user.\r\n"
 
 #define ERR_PASV_ACTIF "425 Use PORT or PASV first.\r\n"
 #define ERR_CWD "550 Failed to change directory.\r\n"
@@ -55,7 +58,7 @@
 #define ALRD_AUTH "530 Can't change from guest user.\r\n"
 #define PASS_FIRST "503 Login with USER first.\r\n"
 
-#define DEF_USER "Anonymous"
+#define DEF_USER "anonymous"
 #define DEF_PASS ""
 
 #define ASK_PASS "331 User name okay, need password.\r\n"
@@ -71,6 +74,15 @@
 #define SUCCESS_PASV "227 Entering Passive Mode "
 
 #define UNKNOWN_CMD "500 Unknown command.\r\n"
+
+typedef struct          s_get
+{
+  int                   j;
+  int                   i;
+  int                   a;
+  char                  *stock;
+  int                   cmpt;
+}                       t_get;
 
 typedef enum
   {
@@ -109,7 +121,7 @@ typedef struct	s_handler
 {
   t_client_res	client;
   t_user	*user;
-  int		pasv_client_fd;
+  int		client_fd;
   bool		pasv;
   bool		activ;
 }		t_handler;
@@ -150,3 +162,7 @@ bool            stor_fct(t_connect *, t_handler *);
 bool            list_fct(t_connect *, t_handler *);
 bool            del_fct(t_connect *, t_handler *);
 void            initialise_session(t_handler *);
+bool            check_end_order_retr(char *, bool, int, int);
+bool            check_end_order_stor(char *, bool, int, int);
+char            **get_argv_ls(char **, t_handler *);
+char            *my_strcar(char *, char);

@@ -5,7 +5,7 @@
 ## Login   <le-mou_t@epitech.net>
 ## 
 ## Started on  Sat May 13 11:39:49 2017 Thomas LE MOULLEC
-## Last update Sun May 14 14:46:55 2017 Thomas LE MOULLEC
+## Last update Thu May 18 12:38:08 2017 Thomas LE MOULLEC
 ##
 
 CC		= gcc
@@ -30,6 +30,8 @@ SRCS		= $(SRCSPATH)main.c		\
 		$(SRCSPATH)directory.c		\
 		$(SRCSPATH)basics.c		\
 		$(SRCSPATH)transfert.c		\
+		$(SRCSPATH)reading.c		\
+		$(SRCSPATH)list.c		\
 
 OBJS		= $(SRCS:.c=.o)
 

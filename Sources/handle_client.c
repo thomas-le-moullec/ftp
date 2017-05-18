@@ -5,23 +5,10 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Tue May 16 21:44:32 2017 Thomas LE MOULLEC
+** Last update Thu May 18 11:17:43 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
-
-char            *client_read(int client_fd)
-{
-  char          *buffer;
-  int           size;
-
-  if ((buffer = malloc(sizeof(*buffer) * 1024)) == NULL)
-    handle_error_sys("Malloc Failed");
-  if ((size = read(client_fd, buffer, 1024)) <= 0)
-    return (NULL);
-  buffer[size] = '\0';
-  return (buffer);
-}
 
 int		get_param(char *client_res, t_handler *control, int i)
 {

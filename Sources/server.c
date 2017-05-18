@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 13:39:39 2017 Thomas LE MOULLEC
-** Last update Tue May 16 20:13:11 2017 Thomas LE MOULLEC
+** Last update Thu May 18 11:00:03 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -21,7 +21,9 @@ bool			run_server(t_connect *server, t_handler *control)
 {
   while (1)
     {
-      if ((server->client_fd = accept(server->fd, (struct sockaddr *)&server->s_in_client, &server->s_in_size)) == -1)
+      if ((server->client_fd = accept(server->fd, \
+				      (struct sockaddr *)&server->s_in_client, \
+				      &server->s_in_size)) == -1)
 	{
 	  close(server->fd);
 	  handle_error_sys("Accept failed");

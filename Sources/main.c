@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 13:11:23 2017 Thomas LE MOULLEC
-** Last update Sun May 14 22:15:49 2017 Thomas LE MOULLEC
+** Last update Thu May 18 10:54:05 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -27,5 +27,7 @@ int		main(int ac, char **av)
   initialise_session(control);
   control->user->pathUser = av[2];
   run_server(server, control);
+  free(control);
+  free(server);
   return (0);
 }

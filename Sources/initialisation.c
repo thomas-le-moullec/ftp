@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 23:49:10 2017 Thomas LE MOULLEC
-** Last update Tue May 16 22:06:31 2017 Thomas LE MOULLEC
+** Last update Thu May 18 13:59:38 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -63,6 +63,7 @@ void		init_cmd_fct(t_command_tab *orders)
   orders->cmd_tab[11] = &stor_fct;
   orders->cmd_tab[12] = &list_fct;
   orders->cmd_tab[13] = &del_fct;
+  orders->cmd_tab[14] = &noop_fct;
 }
 
 void		init_cmd_order(t_command_tab *orders)
@@ -81,6 +82,7 @@ void		init_cmd_order(t_command_tab *orders)
   orders->cmd[11] = STOR;
   orders->cmd[12] = LIST;
   orders->cmd[13] = DELE;
+  orders->cmd[14] = TYPE;
 }
 
 void		initialise_cmd(t_command_tab *orders)

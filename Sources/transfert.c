@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:47:04 2017 Thomas LE MOULLEC
-** Last update Thu May 18 13:43:51 2017 Thomas LE MOULLEC
+** Last update Thu May 18 14:43:16 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -77,6 +77,7 @@ bool            port_fct(t_connect *server, t_handler *control)
     handle_error("Could not connect");
   control->client_fd = fd;
   control->activ = true;
+  dprintf(server->client_fd, "%s", SUCCESS_CMD);
   return (true);
 }
 
@@ -92,15 +93,17 @@ bool            retr_fct(t_connect *server, t_handler *control)
       dprintf(server->client_fd, "%s", ERR_PASV_ACTIF);
       return (false);
     }
+  dprintf(server->client_fd, "%s", SUCCESS_DATA);
   if ((fd = open(control->client.param, O_RDONLY)) == -1)
     handle_error_sys("Open Failed");
   while (end == false)
     {
-      client_res = get_next_line(fd);
+      client_res = client_read(fd);
       end = check_end_order_retr(client_res, end, fd, control->client_fd);
     }
   control->pasv = false;
   control->activ = false;
+  dprintf(server->client_fd, "%s", END_DATA);
   return (true);
 }
 
@@ -116,15 +119,17 @@ bool            stor_fct(t_connect *server, t_handler *control)
       dprintf(server->client_fd, "%s", ERR_PASV_ACTIF);
       return (false);
     }
+  dprintf(control->client_fd, "%s", SUCCESS_DATA);
   if ((fd = open(control->client.param, O_RDWR | O_CREAT | O_TRUNC, \
 		 S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1)
     handle_error_sys("Open Failed");
   while (end == false)
     {
-      client_res = get_next_line(control->client_fd);
+      client_res = client_read(control->client_fd);
       end = check_end_order_stor(client_res, end, fd, control->client_fd);
     }
   control->pasv = false;
   control->activ = false;
+  dprintf(control->client_fd, "%s", END_DATA);
   return (true);
 }

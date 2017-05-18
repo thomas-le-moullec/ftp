@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Thu May 18 12:36:17 2017 Thomas LE MOULLEC
-** Last update Thu May 18 12:38:22 2017 Thomas LE MOULLEC
+** Last update Thu May 18 14:15:05 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -33,6 +33,7 @@ bool            list_fct(t_connect *server, t_handler *control)
       dprintf(server->client_fd, "%s", ERR_PASV_ACTIF);
       return (false);
     }
+  dprintf(server->client_fd, "%s", SUCCESS_DATA);
   pid = fork();
   if ((av = malloc(sizeof(char *) * 4)) == NULL)
     handle_error_sys("Malloc Failed");
@@ -45,5 +46,6 @@ bool            list_fct(t_connect *server, t_handler *control)
   else
     waitpid(pid, &status, WUNTRACED | WCONTINUED);
   close(control->client_fd);
+  dprintf(server->client_fd, "%s", END_DATA);
   return (true);
 }

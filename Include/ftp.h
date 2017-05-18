@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Thu May 18 13:45:07 2017 Thomas LE MOULLEC
+** Last update Thu May 18 14:24:38 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -41,6 +41,7 @@
 #define HELP "HELP"
 #define NOOP "NOOP"
 #define DELE "DELE"
+#define TYPE "TYPE"
 
 #define PASV "PASV"
 #define PORT "PORT"
@@ -50,7 +51,7 @@
 
 #define LOCALHOST "127.0.0.1"
 
-#define NBR_CMD 14
+#define NBR_CMD 15
 
 #define WELCOME "220 Service ready for new user.\r\n"
 
@@ -68,6 +69,7 @@
 #define ASK_PASS "331 User name okay, need password.\r\n"
 #define SUCCESS_CWD "250 Requested file action okay, completed.\r\n"
 #define SUCCESS_DELE "250 Requested file action okay, completed.\r\n"
+#define SUCCESS_CMD "200 Command okay.\r\n"
 #define SUCCESS_CDUP "200 Command okay.\r\n"
 #define SUCCESS_AUTH "230 User logged in, proceed.\r\n"
 #define SUCCESS_PWD "created.\r\n"
@@ -76,6 +78,8 @@
 #define SUCCESS_HELP "214-The following commands are recognized.\r\n"
 #define SUCCESS_HELP2 "214 Help OK.\r\n"
 #define SUCCESS_PASV "227 Entering Passive Mode "
+#define SUCCESS_DATA "150 File status okay; about to open data connection.\r\n"
+#define END_DATA "226 Closing data connection.\r\n"
 
 #define UNKNOWN_CMD "500 Unknown command.\r\n"
 

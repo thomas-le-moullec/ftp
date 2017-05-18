@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Thu May 18 16:13:14 2017 Thomas LE MOULLEC
+** Last update Thu May 18 17:35:30 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -20,7 +20,7 @@ int		get_param(char *client_res, t_handler *control, int i)
   if (client_res[i] == '\0' || (client_res[i] == CRLF1 ||	\
 				client_res[i + 1] == CRLF2))
     {
-      control->client.param = "";
+      control->client.param = strdup("");
       return (i);
     }
   if ((control->client.param = malloc(sizeof(*client_res) * \
@@ -46,7 +46,7 @@ void		get_order(t_handler *control, char *client_res)
     handle_error_sys("Malloc Failed");
   control->client.param = "";
   while (client_res[i] != '\0' && client_res[i] != CRLF1 && \
-	 client_res[i] != CRLF2 && client_res[i] != SP1 &&
+	 client_res[i] != CRLF2 && client_res[i] != SP1 && \
 	 client_res[i] != SP2)
     control->client.cmd[j++] = client_res[i++];
   control->client.cmd[j] = '\0';
@@ -83,6 +83,7 @@ bool		handle_client(t_connect *server, t_handler *control)
   bool		end;
 
   end = false;
+  client_res = NULL;
   server->client_ip = inet_ntoa(server->s_in_client.sin_addr);
   dprintf(server->client_fd, "%s", WELCOME);
   while (end == false)

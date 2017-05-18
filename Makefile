@@ -5,10 +5,10 @@
 ## Login   <le-mou_t@epitech.net>
 ## 
 ## Started on  Sat May 13 11:39:49 2017 Thomas LE MOULLEC
-## Last update Thu May 18 13:45:20 2017 Thomas LE MOULLEC
+## Last update Thu May 18 17:33:58 2017 Thomas LE MOULLEC
 ##
 
-CC		= gcc
+CC		= gcc -g
 
 NAME		= server
 

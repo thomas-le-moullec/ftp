@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 13:11:23 2017 Thomas LE MOULLEC
-** Last update Thu May 18 10:54:05 2017 Thomas LE MOULLEC
+** Last update Thu May 18 17:37:06 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -15,6 +15,8 @@ int		main(int ac, char **av)
   t_connect	*server;
   t_handler	*control;
 
+  server = NULL;
+  control = NULL;
   if (ac != 3)
     handle_error("Usage : ./server port path\n");
   if ((server = malloc(sizeof(*server))) == NULL || \

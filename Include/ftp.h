@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Thu May 18 16:12:10 2017 Thomas LE MOULLEC
+** Last update Thu May 18 17:09:30 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -21,9 +21,7 @@
 #include <sys/wait.h>
 #include <ctype.h>
 
-#ifndef READ_SIZE
-# define READ_SIZE (4096)
-#endif
+#define READ_SIZE (4096)
 
 #define CRLF1 '\r'
 #define CRLF2 '\n'

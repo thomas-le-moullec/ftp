@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:47:04 2017 Thomas LE MOULLEC
-** Last update Thu May 18 14:43:16 2017 Thomas LE MOULLEC
+** Last update Thu May 18 15:49:16 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -119,7 +119,7 @@ bool            stor_fct(t_connect *server, t_handler *control)
       dprintf(server->client_fd, "%s", ERR_PASV_ACTIF);
       return (false);
     }
-  dprintf(control->client_fd, "%s", SUCCESS_DATA);
+  dprintf(server->client_fd, "%s", SUCCESS_DATA);
   if ((fd = open(control->client.param, O_RDWR | O_CREAT | O_TRUNC, \
 		 S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1)
     handle_error_sys("Open Failed");
@@ -130,6 +130,6 @@ bool            stor_fct(t_connect *server, t_handler *control)
     }
   control->pasv = false;
   control->activ = false;
-  dprintf(control->client_fd, "%s", END_DATA);
+  dprintf(server->client_fd, "%s", END_DATA);
   return (true);
 }

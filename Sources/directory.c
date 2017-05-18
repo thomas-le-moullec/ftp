@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:15:54 2017 Thomas LE MOULLEC
-** Last update Mon May 15 22:39:56 2017 Thomas LE MOULLEC
+** Last update Thu May 18 15:39:18 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -55,4 +55,3 @@ bool            pwd_fct(t_connect *server, t_handler *control)
   dprintf(server->client_fd, "257 %s %s", cwd, SUCCESS_PWD);
   return (true);
 }
-

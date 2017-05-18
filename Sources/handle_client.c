@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Thu May 18 13:41:50 2017 Thomas LE MOULLEC
+** Last update Thu May 18 16:13:14 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -15,14 +15,14 @@ int		get_param(char *client_res, t_handler *control, int i)
   int		h;
 
   h = 0;
-  if (client_res[i] == '\0' || client_res[i] == CRLF1 || \
-      client_res[i] == CRLF2)
+  while (client_res[i] == SP1 || client_res[i] == SP2)
+    i++;
+  if (client_res[i] == '\0' || (client_res[i] == CRLF1 ||	\
+				client_res[i + 1] == CRLF2))
     {
       control->client.param = "";
       return (i);
     }
-  while (client_res[i] == SP1 || client_res[i] == SP2)
-    i++;
   if ((control->client.param = malloc(sizeof(*client_res) * \
 				      (strlen(client_res) + 1))) == NULL)
     handle_error_sys("Malloc Failed");

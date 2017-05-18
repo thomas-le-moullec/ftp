@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Thu May 18 11:17:43 2017 Thomas LE MOULLEC
+** Last update Thu May 18 13:41:50 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -87,7 +87,8 @@ bool		handle_client(t_connect *server, t_handler *control)
   dprintf(server->client_fd, "%s", WELCOME);
   while (end == false)
     {
-      client_res = client_read(server->client_fd);
+      //      client_res = client_read(server->client_fd);
+      client_res = get_next_line(server->client_fd);
       get_order(control, client_res);
       exec_order(control, server);
       if (strcmp(control->client.cmd, QUIT) == 0)

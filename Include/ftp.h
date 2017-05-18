@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Thu May 18 13:28:46 2017 Thomas LE MOULLEC
+** Last update Thu May 18 13:45:07 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -20,6 +20,10 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 #include <ctype.h>
+
+#ifndef READ_SIZE
+# define READ_SIZE (4096)
+#endif
 
 #define CRLF1 '\n'
 #define CRLF2 '\r'
@@ -166,3 +170,7 @@ bool            check_end_order_retr(char *, bool, int, int);
 bool            check_end_order_stor(char *, bool, int, int);
 char            **get_argv_ls(char **, t_handler *);
 char            *my_strcar(char *, char);
+int             do_it(t_get *, char *, int *);
+int             check_static(char *, int *, t_get *);
+char            *get_next_line(const int);
+void            *my_free(void *);

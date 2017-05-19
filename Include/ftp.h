@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Fri May 19 11:12:26 2017 Thomas LE MOULLEC
+** Last update Fri May 19 11:33:30 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -28,8 +28,8 @@
 #define SP1 ' '
 #define SP2 '\t'
 
-#define USER "USER"
-#define PASSWORD "PASS"
+#define USER "user"
+#define PASSWORD "pass"
 
 #define PWD "PWD"
 #define CDUP "CDUP"

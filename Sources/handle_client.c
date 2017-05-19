@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Fri May 19 11:11:21 2017 Thomas LE MOULLEC
+** Last update Fri May 19 11:32:35 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -26,7 +26,7 @@ bool		get_param(char *client_res, t_handler *control, int i)
     {
       if (control->client.param[j] != SP1 && control->client.param[j] != SP2)
 	{
-	  control->client.param[j] = client_res[i];
+	  control->client.param[j] = tolower(client_res[i]);
 	  j++;
 	}
       i++;
@@ -45,7 +45,7 @@ bool		get_order(t_handler *control, char *client_res)
   while (client_res[i] != '\0' && client_res[i] != CRLF1  &&	  \
 	 client_res[i] != SP1 && client_res[i] != SP2)
     {
-      control->client.cmd[i] = client_res[i];
+      control->client.cmd[i] = tolower(client_res[i]);
       i++;
     }
   control->client.cmd[i] = '\0';

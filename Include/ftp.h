@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Fri May 19 11:33:30 2017 Thomas LE MOULLEC
+** Last update Fri May 19 11:39:46 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -31,21 +31,21 @@
 #define USER "user"
 #define PASSWORD "pass"
 
-#define PWD "PWD"
-#define CDUP "CDUP"
-#define CWD "CWD"
+#define PWD "pwd"
+#define CDUP "cdup"
+#define CWD "cwd"
 
-#define QUIT "QUIT"
-#define HELP "HELP"
-#define NOOP "NOOP"
-#define DELE "DELE"
-#define TYPE "TYPE"
+#define QUIT "quit"
+#define HELP "help"
+#define NOOP "noop"
+#define DELE "dele"
+#define TYPE "type"
 
-#define PASV "PASV"
-#define PORT "PORT"
-#define RETR "RETR"
-#define STOR "STOR"
-#define LIST "LIST"
+#define PASV "pasv"
+#define PORT "port"
+#define RETR "retr"
+#define STOR "stor"
+#define LIST "list"
 
 #define LOCALHOST "127.0.0.1"
 

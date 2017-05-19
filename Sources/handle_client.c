@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Fri May 19 11:32:35 2017 Thomas LE MOULLEC
+** Last update Fri May 19 11:44:20 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -52,6 +52,7 @@ bool		get_order(t_handler *control, char *client_res)
   while (client_res[i] == SP1 || client_res[i] == SP2)
     i++;
   get_param(client_res, control, i);
+  //  printf("CMD =...%s... && PARAM =...%s...\n", control->client.cmd, control->client.param);
   return (true);
 }
 

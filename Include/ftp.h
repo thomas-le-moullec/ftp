@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Fri May 19 11:39:46 2017 Thomas LE MOULLEC
+** Last update Fri May 19 14:26:51 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -147,7 +147,7 @@ bool		handle_client(struct s_connect *, t_handler *);
 void            initialise_connection(struct s_connect *);
 bool            run_server(struct s_connect *, t_handler *);
 bool            parent_server(int);
-char            *client_read(int);
+char            *client_read(int, int);
 void            initialise_cmd(t_command_tab *);
 bool             get_param(char *, t_handler *, int);
 void            init_cmd_fct(t_command_tab *);
@@ -176,3 +176,4 @@ int             do_it(t_get *, char *, int *);
 int             check_static(char *, int *, t_get *);
 char            *get_next_line(const int);
 void            *my_free(void *);
+char            **my_str_to_wordtab(char *, char *);

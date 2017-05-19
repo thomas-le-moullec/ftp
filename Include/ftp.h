@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Thu May 18 17:09:30 2017 Thomas LE MOULLEC
+** Last update Fri May 19 11:12:26 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -149,7 +149,7 @@ bool            run_server(struct s_connect *, t_handler *);
 bool            parent_server(int);
 char            *client_read(int);
 void            initialise_cmd(t_command_tab *);
-int             get_param(char *, t_handler *, int);
+bool             get_param(char *, t_handler *, int);
 void            init_cmd_fct(t_command_tab *);
 void            init_cmd_order(t_command_tab *);
 bool            exec_order(t_handler *, t_connect *);

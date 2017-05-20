@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Fri May 19 15:47:07 2017 Thomas LE MOULLEC
+** Last update Sat May 20 13:39:21 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -45,6 +45,7 @@ bool		get_order(t_handler *control, char *client_res)
   int		i;
 
   i = 0;
+  //  printf("client_res in get Order =>...%s...\n", client_res);
   if ((control->client.cmd = malloc(sizeof(*client_res) * 10000)) == NULL)
     handle_error_sys("Malloc Failed");
   while (client_res[i] != '\0' && client_res[i] != CRLF1 && client_res[i] != CRLF2 && client_res[i] != SP1 && client_res[i] != SP2)
@@ -147,7 +148,7 @@ bool		handle_client(t_connect *server, t_handler *control)
 	{
 	  if (check_line(client_res) == true)
 	    {
-	      tokens = my_str_to_wordtab(client_res, "\r\n");
+	      tokens = my_str_to_wordtab(client_res, "\n");
 	      tmp = NULL;
 	    }
 	  else
@@ -158,6 +159,7 @@ bool		handle_client(t_connect *server, t_handler *control)
 	  //	  printf("token =>...%s...\n", tokens[x]);
 	  if ((get_order(control, tokens[x])) == true)
 	    {
+	      //      printf("cmd =>...%s... && param => ...%s...\n", control->client.cmd, control->client.param);
 	      //	  printf("cmd => ...%s... && param => ...%s...\n", control->client.cmd, control->client.param);
 	      //	      printf("cmd =>...%s... && param =>...%s...\n", control->client.cmd, control->client.param);
 	      exec_order(control, server);

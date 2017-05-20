@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Sat May 20 19:36:33 2017 Thomas LE MOULLEC
+** Last update Sat May 20 20:23:21 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -176,4 +176,6 @@ int             do_it(t_get *, char *, int *);
 int             check_static(char *, int *, t_get *);
 char            *get_next_line(const int);
 void            *my_free(void *);
-char            **my_str_to_wordtab(char *, char);
+char            **my_str_to_wordtab(char *, char, int, int);
+void		*free_tab(char **);
+bool            loop_on_tokens(t_handler *, char **, t_connect *);

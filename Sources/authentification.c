@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 13:05:17 2017 Thomas LE MOULLEC
-** Last update Fri May 19 11:13:19 2017 Thomas LE MOULLEC
+** Last update Sat May 20 20:04:50 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -25,7 +25,6 @@ bool		check_authentification(t_handler *control, t_connect *server)
 
 bool		passwd_fct(t_connect *server, t_handler *control)
 {
-  //  printf("User => %s && PassWord => ...%s...\n", control->user->userName, control->client.param);
   if (control->user->userName == NULL)
     {
       dprintf(server->client_fd, "%s", PASS_FIRST);
@@ -36,11 +35,6 @@ bool		passwd_fct(t_connect *server, t_handler *control)
       dprintf(server->client_fd, "%s", ERR_USER);
       return (false);
     }
-  /*  if (strcmp(control->client.param, DEF_PASS) != 0)
-    {
-      dprintf(server->client_fd, "%s", ERR_PASS);
-      return (false);
-      }*/
   dprintf(server->client_fd, "%s", SUCCESS_AUTH);
   control->user->passwd = control->client.param;
   control->user->is_connected = true;

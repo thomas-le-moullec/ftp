@@ -5,7 +5,7 @@
 ## Login   <le-mou_t@epitech.net>
 ## 
 ## Started on  Sat May 13 11:39:49 2017 Thomas LE MOULLEC
-## Last update Fri May 19 14:23:04 2017 Thomas LE MOULLEC
+## Last update Sat May 20 20:23:53 2017 Thomas LE MOULLEC
 ##
 
 CC		= gcc
@@ -32,7 +32,6 @@ SRCS		= $(SRCSPATH)main.c		\
 		$(SRCSPATH)transfert.c		\
 		$(SRCSPATH)reading.c		\
 		$(SRCSPATH)list.c		\
-		$(SRCSPATH)get_next_line.c	\
 		$(SRCSPATH)free.c		\
 		$(SRCSPATH)my_str_to_wordtab.c	\
 

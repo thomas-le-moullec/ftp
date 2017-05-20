@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 14:54:20 2017 Thomas LE MOULLEC
-** Last update Sat May 20 13:39:21 2017 Thomas LE MOULLEC
+** Last update Sat May 20 19:47:22 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -32,11 +32,6 @@ bool		get_param(char *client_res, t_handler *control, int i)
       i++;
     }
   control->client.param[j] = '\0';
-  /*  if (client_res[i] != CRLF1)
-    {
-      printf("PAS DE CRLF1 !\n");
-      return (false);
-      }*/
   return (true);
 }
 
@@ -45,10 +40,9 @@ bool		get_order(t_handler *control, char *client_res)
   int		i;
 
   i = 0;
-  //  printf("client_res in get Order =>...%s...\n", client_res);
   if ((control->client.cmd = malloc(sizeof(*client_res) * 10000)) == NULL)
     handle_error_sys("Malloc Failed");
-  while (client_res[i] != '\0' && client_res[i] != CRLF1 && client_res[i] != CRLF2 && client_res[i] != SP1 && client_res[i] != SP2)
+  while (client_res[i] != '\0' && client_res[i] != CRLF1 && client_res[i] != SP1 && client_res[i] != SP2)
     {
       control->client.cmd[i] = tolower(client_res[i]);
       i++;
@@ -59,7 +53,6 @@ bool		get_order(t_handler *control, char *client_res)
   while (client_res[i] == SP1 || client_res[i] == SP2)
     i++;
   return (get_param(client_res, control, i));
-  //  printf("CMD =...%s... && PARAM =...%s...\n", control->client.cmd, control->client.param);
 }
 
 bool			exec_order(t_handler *control, t_connect *server)
@@ -93,7 +86,7 @@ bool		check_line(char *client_res)
   i = 0;
   while (client_res[i] != '\0')
     {
-      if (client_res[i] == '\n')
+      if (client_res[i] == CRLF2)
 	return (true);
       i++;
     }
@@ -114,8 +107,6 @@ char		*my_strcat(char *first, char *second)
   i = 0;
   while (second[i] != '\0')
     str[j++] = second[i++];
-  //  free(first);
-  //  free(second);
   str[j] = '\0';
   return (str);
 }
@@ -124,7 +115,6 @@ bool		handle_client(t_connect *server, t_handler *control)
 {
   char		*client_res;
   char		**tokens;
-  char		*tmp;
   int		x;
   bool		end;
 
@@ -133,50 +123,38 @@ bool		handle_client(t_connect *server, t_handler *control)
   server->client_ip = inet_ntoa(server->s_in_client.sin_addr);
   dprintf(server->client_fd, "%s", WELCOME);
   control->client.param = strdup("");
-  tmp = NULL;
   while (end == false)
     {
       x = 0;
       tokens = NULL;
-      if ((client_res = client_read(server->client_fd, 1000)) == NULL)
+      client_res = client_read(server->client_fd, 10000);
+      if (client_res == NULL)
 	end = true;
-      //      printf("Client response before static=>...%s...\n", client_res);
-      if (tmp != NULL && client_res != NULL)
-	client_res = my_strcat(tmp, client_res);
-      //      printf("Client response after static=>...%s...\n", client_res);
-      if (client_res != NULL)
+      if (end == false)
 	{
-	  if (check_line(client_res) == true)
+	  tokens = my_str_to_wordtab(client_res, CRLF2);
+	  while (tokens != NULL && tokens[x] != NULL)
 	    {
-	      tokens = my_str_to_wordtab(client_res, "\n");
-	      tmp = NULL;
+	      if ((get_order(control, tokens[x])) == true)
+		{
+		  exec_order(control, server);
+		  if (strcmp(control->client.cmd, QUIT) == 0)
+		    end = true;
+		  control->client.param = strdup("");
+		  control->client.param = NULL;
+		  control->client.cmd = NULL;
+		}
+	      x++;
 	    }
-	  else
-	    tmp = strdup(client_res);
-	}
-      while (tokens != NULL && tokens[x] != NULL)
-	{
-	  //	  printf("token =>...%s...\n", tokens[x]);
-	  if ((get_order(control, tokens[x])) == true)
+	  x = 0;
+	  if (tokens != NULL)
 	    {
-	      //      printf("cmd =>...%s... && param => ...%s...\n", control->client.cmd, control->client.param);
-	      //	  printf("cmd => ...%s... && param => ...%s...\n", control->client.cmd, control->client.param);
-	      //	      printf("cmd =>...%s... && param =>...%s...\n", control->client.cmd, control->client.param);
-	      exec_order(control, server);
-	      if (strcmp(control->client.cmd, QUIT) == 0)
-		end = true;
-	      //	  free(client_res);
-	      control->client.param = strdup("");
-	      control->client.param = NULL;
-	      control->client.cmd = NULL;
+	      while (tokens[x] != NULL)
+		free(tokens[x++]);
+	      free(tokens);
 	    }
-	  //	  free(tokens[x]);
-	    //printf("token =...%s...\n", tokens[x]);
-	  x++;
 	}
     }
-  //  if (tokens != NULL)
-  //free(tokens);
   if (close(server->client_fd) == -1)
     return (false);
   return (true);

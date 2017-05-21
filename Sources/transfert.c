@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:47:04 2017 Thomas LE MOULLEC
-** Last update Sun May 21 10:44:31 2017 Thomas LE MOULLEC
+** Last update Sun May 21 12:03:12 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -62,17 +62,23 @@ bool            pasv_fct(t_connect *server, t_handler *control)
 bool            port_fct(t_connect *server, t_handler *control)
 {
   t_connect	port;
+  char		**tokens;
   int		fd;
 
-  (void)server;
   port.pe = getprotobyname("TCP");
   if (!port.pe)
     return (1);
   if ((fd = socket(AF_INET, SOCK_STREAM, port.pe->p_proto)) == -1)
     handle_error("Could not create new Socket");
+  tokens = str_to_wordtab(control->client.param, ',');
+  if (check_tokens(tokens, server->client_fd) == false)
+    {
+      close(fd);
+      return (false);
+    }
   port.s_in.sin_family = AF_INET;
-  port.s_in.sin_port = htons(atoi(control->client.param));
-  port.s_in.sin_addr.s_addr = inet_addr(LOCALHOST);
+  port.s_in.sin_port = htons(256 * atoi(tokens[4]) + atoi(tokens[5]));
+  port.s_in.sin_addr.s_addr = inet_addr(get_ip(tokens, 0, 0));
   if (connect(fd, (struct sockaddr *)&port.s_in, sizeof(port.s_in)) == -1)
     handle_error("Could not connect");
   control->client_fd = fd;

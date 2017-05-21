@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:37:16 2017 Thomas LE MOULLEC
-** Last update Sat May 20 20:23:21 2017 Thomas LE MOULLEC
+** Last update Sun May 21 10:40:50 2017 Thomas LE MOULLEC
 */
 
 #include <sys/types.h>
@@ -73,7 +73,7 @@
 #define SUCCESS_PWD "created.\r\n"
 #define SUCCESS_NOOP "200 Command okay.\r\n"
 #define SUCCESS_QUIT "221 Quit.\r\n"
-#define SUCCESS_HELP "214-The following commands are recognized.\r\n"
+#define SUCCESS_HELP "214 Help message.\r\n"
 #define SUCCESS_HELP2 "214 Help OK.\r\n"
 #define SUCCESS_PASV "227 Entering Passive Mode "
 #define SUCCESS_DATA "150 File status okay; about to open data connection.\r\n"

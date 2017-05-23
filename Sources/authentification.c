@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 13:05:17 2017 Thomas LE MOULLEC
-** Last update Sat May 20 20:04:50 2017 Thomas LE MOULLEC
+** Last update Tue May 23 16:38:15 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -47,11 +47,11 @@ bool          user_fct(t_connect *server, t_handler *control)
   int		i;
 
   i = 0;
-  if (control->user->is_connected == true)
+  /*  if (control->user->is_connected == true)
     {
       dprintf(server->client_fd, "%s", ALRD_AUTH);
       return (false);
-    }
+      }*/
   while (control->client.param[i] != '\0')
     {
       control->client.param[i] = tolower(control->client.param[i]);

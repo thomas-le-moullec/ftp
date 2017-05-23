@@ -5,25 +5,13 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 13:05:17 2017 Thomas LE MOULLEC
-** Last update Tue May 23 17:55:51 2017 Thomas LE MOULLEC
+** Last update Tue May 23 18:01:34 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
 
 bool		check_authentification(t_handler *control, t_connect *server)
 {
-  if (control->user->is_connected == false)
-    {
-      printf("NOT CONNECTED \n");
-      dprintf(server->client_fd, "NOT CONNECTED \n");
-      dprintf(server->client_fd, "cmd => ..%s..\n", control->client.cmd);
-    }
-  else
-    {
-      printf("CONNECTED \n");
-      dprintf(server->client_fd, "CONNECTED \n");
-      dprintf(server->client_fd, "cmd => ..%s..\n", control->client.cmd);
-    }
   if (control->user->is_connected == false &&		\
       strcmp(control->client.cmd, USER) != 0 &&		\
       strcmp(control->client.cmd, PASSWORD) != 0 &&	\

@@ -5,7 +5,7 @@
 ** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 23:49:10 2017 Thomas LE MOULLEC
-** Last update Thu May 18 13:59:38 2017 Thomas LE MOULLEC
+** Last update Tue May 23 18:00:25 2017 Thomas LE MOULLEC
 */
 
 #include "ftp.h"
@@ -42,7 +42,7 @@ void		initialise_session(t_handler *control)
   control->user->pathUser = NULL;
   control->user->userName = NULL;
   control->user->passwd = NULL;
-  control->user->is_connected = false;
+  control->user->is_connected = true;
   control->pasv = false;
   control->activ = false;
 }

@@ -1,8 +1,6 @@
 /*
-** reading.c for reading in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Thu May 18 11:17:06 2017 Thomas LE MOULLEC
 ** Last update Sun May 21 12:02:36 2017 Thomas LE MOULLEC

@@ -1,8 +1,6 @@
 /*
-** handle.c for handle in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:32:33 2017 Thomas LE MOULLEC
 ** Last update Sun May 14 22:11:09 2017 Thomas LE MOULLEC

@@ -1,8 +1,6 @@
 /*
-** transfert.c for transfert in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp/Sources
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:47:04 2017 Thomas LE MOULLEC
 ** Last update Sun May 21 12:03:12 2017 Thomas LE MOULLEC

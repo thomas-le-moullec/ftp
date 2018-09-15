@@ -1,8 +1,6 @@
 /*
-** server.c for server in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp/Sources
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 13:39:39 2017 Thomas LE MOULLEC
 ** Last update Thu May 18 11:00:03 2017 Thomas LE MOULLEC

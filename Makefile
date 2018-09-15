@@ -1,8 +1,6 @@
 ##
-## Makefile for Makefile in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp
 ## 
 ## Made by Thomas LE MOULLEC
-## Login   <le-mou_t@epitech.net>
 ## 
 ## Started on  Sat May 13 11:39:49 2017 Thomas LE MOULLEC
 ## Last update Sat May 20 20:23:53 2017 Thomas LE MOULLEC

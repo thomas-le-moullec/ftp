@@ -1,8 +1,6 @@
 /*
-** authentification.c for authentification in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp/Sources
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 13:05:17 2017 Thomas LE MOULLEC
 ** Last update Tue May 23 18:01:34 2017 Thomas LE MOULLEC

@@ -1,8 +1,6 @@
 /*
-** directory.c for directory in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:15:54 2017 Thomas LE MOULLEC
 ** Last update Thu May 18 15:39:18 2017 Thomas LE MOULLEC

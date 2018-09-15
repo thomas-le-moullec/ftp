@@ -1,8 +1,6 @@
 /*
-** initialisation.c for Initialisation in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 23:49:10 2017 Thomas LE MOULLEC
 ** Last update Tue May 23 18:00:25 2017 Thomas LE MOULLEC

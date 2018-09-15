@@ -1,8 +1,6 @@
 /*
-** my_str_to_wordtab.c for str in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 20 19:48:33 2017 Thomas LE MOULLEC
 ** Last update Sun May 21 11:36:29 2017 Thomas LE MOULLEC

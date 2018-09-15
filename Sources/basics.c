@@ -1,8 +1,6 @@
 /*
-** basics.c for basics in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp/Sources
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sun May 14 14:45:08 2017 Thomas LE MOULLEC
 ** Last update Sun May 21 10:43:42 2017 Thomas LE MOULLEC

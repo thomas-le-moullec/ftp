@@ -1,8 +1,6 @@
 /*
-** display.c for display in /home/le-mou_t/rendu/TEK2/C/PSU_2016_myftp
 ** 
 ** Made by Thomas LE MOULLEC
-** Login   <le-mou_t@epitech.net>
 ** 
 ** Started on  Sat May 13 11:34:48 2017 Thomas LE MOULLEC
 ** Last update Sat May 13 13:22:41 2017 Thomas LE MOULLEC
